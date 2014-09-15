@@ -92,14 +92,14 @@ describe("inquirer.prompt", function() {
 
   it("should parse `message` if passed as a function", function( done ) {
     var stubMessage = "foo";
-    inquirer.prompts.stub = function( params ) {
+    inquirer.ui.prompts.stub = function( params ) {
       this.opt = {
         when: function() { return true; }
       };
       expect(params.message).to.equal(stubMessage);
       done();
     };
-    inquirer.prompts.stub.prototype.run = function() {};
+    inquirer.ui.prompts.stub.prototype.run = function() {};
 
     var prompts = [{
       type: "input",
@@ -121,14 +121,14 @@ describe("inquirer.prompt", function() {
 
   it("should run asynchronous `message`", function( done ) {
     var stubMessage = "foo";
-    inquirer.prompts.stub = function( params ) {
+    inquirer.ui.prompts.stub = function( params ) {
       this.opt = {
         when: function() { return true; }
       };
       expect(params.message).to.equal(stubMessage);
       done();
     };
-    inquirer.prompts.stub.prototype.run = function() {};
+    inquirer.ui.prompts.stub.prototype.run = function() {};
 
     var prompts = [{
       type: "input",
@@ -153,14 +153,14 @@ describe("inquirer.prompt", function() {
 
   it("should parse `default` if passed as a function", function( done ) {
     var stubDefault = "foo";
-    inquirer.prompts.stub = function( params ) {
+    inquirer.ui.prompts.stub = function( params ) {
       this.opt = {
         when: function() { return true; }
       };
       expect(params.default).to.equal(stubDefault);
       done();
     };
-    inquirer.prompts.stub.prototype.run = function() {};
+    inquirer.ui.prompts.stub.prototype.run = function() {};
 
     var prompts = [{
       type: "input",
@@ -214,12 +214,12 @@ describe("inquirer.prompt", function() {
   });
 
   it("should pass previous answers to the prompt constructor", function( done ) {
-    inquirer.prompts.stub = function( params, rl, answers ) {
+    inquirer.ui.prompts.stub = function( params, rl, answers ) {
       expect(answers.name1).to.equal("bar");
       done();
-      return new inquirer.prompts.input( params, rl, answers );
+      return new inquirer.ui.prompts.input( params, rl, answers );
     };
-    inquirer.prompts.stub.prototype.run = function() {};
+    inquirer.ui.prompts.stub.prototype.run = function() {};
 
     var prompts = [{
       type: "input",
@@ -238,14 +238,14 @@ describe("inquirer.prompt", function() {
 
   it("should parse `choices` if passed as a function", function( done ) {
     var stubChoices = [ "foo", "bar" ];
-    inquirer.prompts.stub = function( params ) {
+    inquirer.ui.prompts.stub = function( params ) {
       this.opt = {
         when: function() { return true; }
       };
       expect(params.choices).to.equal(stubChoices);
       done();
     };
-    inquirer.prompts.stub.prototype.run = function() {};
+    inquirer.ui.prompts.stub.prototype.run = function() {};
 
     var prompts = [{
       type: "input",
@@ -461,10 +461,10 @@ describe("inquirer.prompt", function() {
 
   describe("#restoreDefaultPrompts()", function() {
     it("restore default prompts", function() {
-      var ConfirmPrompt = inquirer.prompts["confirm"];
+      var ConfirmPrompt = inquirer.ui.prompts["confirm"];
       inquirer.registerPrompt("confirm", _.noop);
       inquirer.restoreDefaultPrompts();
-      expect(ConfirmPrompt).to.equal(inquirer.prompts["confirm"]);
+      expect(ConfirmPrompt).to.equal(inquirer.ui.prompts["confirm"]);
     });
   });
 
